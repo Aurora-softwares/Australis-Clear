@@ -1,17 +1,14 @@
-# Australis Clear prototype
+# Australis Clear
 
 ## Current status
 
-The current source writes `args[0]` to the terminal. It does not clear the display and requires an argument.
+`clear.exec` accepts no arguments and clears both the serial and framebuffer
+terminals through the checked terminal operation.
 
 `Clear.hyproj` builds `clear.exec`. The Australis OS aggregate includes
-this project and installs the executable at `/Bin/clear.exec` in the read-only
-HyFS 2 boot image. Run it by its bare name `/Bin/` through the current
-recovery shell's `PATH`, or use `run /Bin/clear.exec`.
-
-## Planned direction
-
-Implement clearing through a public terminal operation once the external-command contract supports it; validate missing arguments before indexing.
+this project and installs the executable at `/System/Bin/clear.exec` in the read-only
+HyFS 2 boot image. Run `clear` from the userland shell or use
+`run /System/Bin/clear.exec` from KMon.
 
 Build this checkout with:
 
@@ -21,7 +18,7 @@ hy build Clear.hyproj -o build/clear.exec
 ```
 
 AUEX `.exec` files currently run in the checked interpreter. Native ring-3
-processes and a normal userland shell are later milestones. The boot root is
+processes remain a later milestone. The boot root is
 read-only; writable application data belongs on the separate `/data` volume.
 The OS-level build, supported APIs, and packaging rules are described in the
 Australis OS `applications/README.md`. This README describes this project's
